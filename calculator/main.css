@@ -28,7 +28,6 @@ html {
   padding: 0;
   box-sizing: border-box;
   font-size: 1rem;
-  color: var(--clr-black);
 }
 
 a {
@@ -65,6 +64,7 @@ input {
 .wrap {
   width: min(60%, 100%);
   margin-inline: auto;
+  color: var(--clr-black);
 }
 
 .type-saving {
@@ -91,14 +91,16 @@ input {
   display: block;
 }
 
-.installment_saving > div {
+.form-saving > div {
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
 }
 
-.installment_saving > div h2 {
+.form-saving > div label,
+.form-saving > div h2 {
   width: 8rem;
+  font-weight: bold;
 }
 
 .input-saving_period {
