@@ -1,0 +1,162 @@
+:root {
+  font-size: 16px;
+
+  --clr-pink-light: #ffe7ff;
+  --clr-pink: #ff9cd9;
+  --clr-pink-deep: #e444a6;
+
+  --clr-gray-light: #ddd;
+  --clr-gray: #9e9e9e;
+  --clr-gray-deep: #4d4d4d;
+
+  --clr-blue-light: #e7f9ff;
+  --clr-blue: #9ccfff;
+  --clr-blue-deep: #44b1e4;
+
+  --clr-red: #ff6363;
+  --clr-red-deep: #dd2424;
+
+  --clr-white: #fff;
+  --clr-black: #1b1a1a;
+}
+html {
+  font-size: 62.5%;
+  line-height: 1.285;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 1rem;
+  color: var(--clr-black);
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  color: var(--clr-black);
+}
+
+li {
+  list-style: none;
+  display: inline-block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  line-height: 2;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+input {
+  padding: 0.4rem 0.6rem;
+  padding-right: 1.2rem;
+  text-align: right;
+}
+
+.wrap {
+  width: min(60%, 100%);
+  margin-inline: auto;
+}
+
+.type-saving {
+  display: flex;
+}
+
+.type-saving li .tab {
+  padding: 0.4rem 0.8rem;
+  background-color: var(--clr-pink-light);
+}
+.type-saving li.on .tab {
+  background-color: var(--clr-pink-deep);
+  color: var(--clr-white);
+  font-weight: bold;
+}
+
+.form-saving {
+  border: 0.1rem solid var(--clr-gray-light);
+  padding: 1rem;
+  display: none;
+}
+
+.form-saving.on {
+  display: block;
+}
+
+.installment_saving > div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.installment_saving > div h2 {
+  width: 8rem;
+}
+
+.input-saving_period {
+  margin-left: 1rem;
+}
+
+.item-preferential_rate input {
+  margin-left: 1rem;
+}
+
+.wrap_btns {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* .area_result */
+
+.area_result {
+  width: 100%;
+  margin-top: 2rem;
+  padding: 2rem;
+  border: 1px solid var(--clr-gray-light);
+}
+
+.area_result .wrapper dl {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.area_result .wrapper dl dt {
+  width: 8rem;
+  font-weight: bold;
+}
+
+.tax_interest {
+  color: var(--clr-red-deep);
+}
+
+.btn-sm {
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.8rem;
+}
+
+.btn-cal {
+  background-color: var(--clr-blue-light);
+}
+
+.btn-reset {
+  background-color: var(--clr-gray-light);
+}
+
+.total_saving_amount {
+}
+
+.item-preferential_rate {
+  display: none;
+}
+.item-preferential_rate.on {
+  display: block;
+}

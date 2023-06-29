@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <script src="main.js" defer></script>
+    <title>이자 계산기</title>
+</head>
+
+<body>
+    <div class="wrap">
+        <section class="sec01">
+            <h1>이자 계산기</h1>
+            <ul class="type-saving">
+                <li class="on"><a href="#installmentSaving" class="tab">적금</a></li>
+                <li><a href="#depositSaving" class="tab">예금</a></li>
+                <li><a href="#loan" class="tab">대출</a></li>
+            </ul>
+            <form id="installmentSaving" class="form-saving installment_saving on">
+                <div class="saving_amount">
+                    <h2>월적립액</h2>
+                    <input type="text" id="monthlySave" onchange="valueMontlySavingAmount()">
+                </div>
+                <div class="saving_period">
+                    <h2>적금기간</h2>
+                    <ul class="wrap-saving_period">
+                        <li>
+                            <label for="periodMonth">개월</label>
+                            <input id="periodMonth" type="radio" name="periodType" value="month" checked>
+                        </li>
+                        <li>
+                            <label for="periodYear">년</label>
+                            <input id="periodYear" type="radio" name="periodType" value="year">
+                        </li>
+                    </ul>
+                    <input type="text" id="savingPeriod" class="input-saving_period" onchange="valueSavingPeriod()">
+                </div>
+                <div class="type_interest">
+
+                    <h2>이자율</h2>
+                    <input id="interestRate" type="text" name="interestRate">
+
+                </div>
+                <div class="type_tax">
+                    <h2>이자과세유형</h2>
+                    <ul>
+                        <li>
+                            <input id="regular" type="radio" value="일반과세" name="taxType" checked class="radio-type_tax">
+                            <label for="regular">일반과세</label>
+                        </li>
+                        <li>
+                            <input id="taxFree" type="radio" value="비과세" name="taxType" class="radio-type_tax">
+                            <label for="taxFree">비과세</label>
+                        </li>
+                        <li>
+                            <input id="preferential" type="radio" value="세금우대" name="taxType" class="radio-type_tax">
+                            <label for="preferential">세금우대</label>
+                        </li>
+                        <li class="item-preferential_rate">
+                            <label for="preferentialRate">우대세율</label>
+                            <input id="preferentialRate" type="text" name="preferentialRate">
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="wrap_btns">
+                    <button type="button" class="btn-sm btn-cal" onclick="cal()">계산하기</button>
+                    <button type="reset" class="btn-sm btn-reset">초기화</button>
+                </div>
+            </form>
+            <form id="depositSaving" class="form-saving">
+                예금계산
+            </form>
+            <form id="loan" class="form-saving">
+                대출계산
+            </form>
+            <div id="result" class="area_result">
+                <div class="wrapper">
+                    <dl>
+                        <dt>원금합계</dt>
+                        <dd><span id="spanTsa" class="total_saving_amount"></span>원</dd>
+                    </dl>
+                    <dl>
+                        <dt>세전이자</dt>
+                        <dd><span id="interestBfrTax"></span>원</dd>
+                    </dl>
+                    <dl>
+                        <dt>세전 수령액</dt>
+                        <dd><span id="depositBfrTaxing"></span>원</dd>
+                    </dl>
+                    <dl class="tax_interest">
+                        <dt>이자과세</dt>
+                        <dd><span id="interestTaxing"></span>원</dd>
+                    </dl>
+                    <dl>
+                        <dt>세후 수령액</dt>
+                        <dd><span id="netDeposit"></span>원</dd>
+                    </dl>
+                </div>
+            </div>
+        </section>
+        <!-- .sec01 end -->
+    </div>
+
+</body>
+
+</html>
