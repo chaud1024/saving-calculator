@@ -1,9 +1,37 @@
 // 이자계산
-// 정기예금 : 원금 x 연이율(%) x 기간(개월수)/12
 // 정기적금 : 월 납입금 x 납입개월수 x (납입개월수 + 1)/2 x  이자율/12
+// 정기예금 :
+// 단리식(매월이자지급)
+// ◎ 월단위 이자계산 : 원금x연이율x월수/12
+// ◎ 일단위 이자계산 : 원금x연이율x일수/365
+// 복리식(만기일시지급)
+// ◎ 월복리 이자계산 : 원금 x｛（1＋연이율/12)ⁿ-1｝ⁿ = 경과일수
+// ◎ 잔여일수이자계산 : 원금＋월복리이자)x연이율x경과일수/365
+
+// 적금, 예금, 대출 탭 기능
+
+const tabs = document.querySelectorAll(".type-saving li");
+const forms = document.querySelectorAll("form");
+
+for (let i = 0; i < tabs.length; i++) {
+  tabs[i].querySelector(".tab").addEventListener("click", function (e) {
+    e.preventDefault();
+    const tabId = this.getAttribute("href");
+    // console.log(forms[i]);
+
+    for (let j = 0; j < tabs.length; j++) {
+      tabs[j].classList.remove("on");
+      forms[j].classList.remove("on");
+    }
+    this.parentNode.classList.add("on");
+    forms[i].classList.add("on");
+  });
+}
 
 // input에 세자리마다 콤마 붙이기
+// 적금
 const monthlySave = document.querySelector("#monthlySave");
+
 monthlySave.addEventListener("keyup", function (e) {
   let value = e.target.value;
   value = Number(value.replace(",", ""));
@@ -11,25 +39,46 @@ monthlySave.addEventListener("keyup", function (e) {
   monthlySave.value = formatValue;
 });
 
-function valueMontlySavingAmount() {
-  const monthlySavingAmount = Number(
-    document.querySelector("#monthlySave").value,
-  );
+//예금
+const depositPrincipal = document.querySelector("#principal");
+
+depositPrincipal.addEventListener("keyup", function (e) {
+  let value = e.target.value;
+  value = Number(value.replace(",", ""));
+  const formatValue = value.toLocaleString("ko-KR");
+  depositPrincipal.value = formatValue;
+});
+
+const valueSavingAmount = () => {
+  Number(document.querySelector("#monthlySave").value);
+};
+
+// 세금우대 선택 시 우대율 적는 input 보여주기
+// 세금우대가 아니라면 우대율 적는 input 숨기기
+const typeTax = document.querySelectorAll(".radio-type_tax");
+
+for (let i = 0; i < typeTax.length; i++) {
+  typeTax[i].addEventListener("click", function (e) {
+    // console.log(e.target.value);
+    if (e.target.value == "세금우대") {
+      document.querySelector(".item-preferential_rate").classList.add("on");
+    } else {
+      document.querySelector(".item-preferential_rate").classList.remove("on");
+    }
+  });
 }
 
-function valueSavingPeriod() {
-  const savingPeriod = document.querySelector("#savingPeriod").value;
-  const period = document.querySelector(
-    'input[name="periodType"]:checked',
-  ).value;
-}
+const 제곱 = Math.pow(2, 10);
+// console.log(제곱);
 
-// 계산하기 버튼 클릭 -> 결과화면
+// 적금 계산하기 버튼 클릭 -> 결과화면
 function cal() {
+  // 매월적립금
   const monthlySavingAmount = document
     .querySelector("#monthlySave")
     .value.replace(/,/g, "");
 
+  // 적립기간 개월<->연
   const savingPeriod = Number(document.querySelector("#savingPeriod").value);
   const period = document.querySelector(
     'input[name="periodType"]:checked',
@@ -127,40 +176,49 @@ function cal() {
   }
 }
 
-// 세금우대 선택 시 우대율 적는 input 보여주기
-// 세금우대가 아니라면 우대율 적는 input 숨기기
-const typeTax = document.querySelectorAll(".radio-type_tax");
+// 예금계산
+function calDeposit() {
+  // 원금합계
+  const principal = Number(
+    document.querySelector("#principal").value.replace(/,/g, ""),
+  );
 
-for (let i = 0; i < typeTax.length; i++) {
-  typeTax[i].addEventListener("click", function (e) {
-    // console.log(e.target.value);
-    if (e.target.value == "세금우대") {
-      document.querySelector(".item-preferential_rate").classList.add("on");
-    } else {
-      document.querySelector(".item-preferential_rate").classList.remove("on");
-    }
-  });
-}
+  document.querySelector("#spanTsa").innerHTML = `
+    ${depositPrincipal.value}
+  `;
 
-const 제곱 = Math.pow(2, 10);
-console.log(제곱);
+  // 예치기간 개월<->연
+  const savingPeriod = document.querySelector("#depositSavingPeriod").value;
+  const period = document.querySelector(
+    "input[name='depositPeriodType']:checked",
+  ).value;
 
-// 적금, 예금, 대출 탭 기능
+  let realSavingPeriod;
 
-const tabs = document.querySelectorAll(".type-saving li");
-const forms = document.querySelectorAll("form");
+  period == "year"
+    ? (realSavingPeriod = Number(savingPeriod) * 12)
+    : (realSavingPeriod = Number(savingPeriod));
 
-for (let i = 0; i < tabs.length; i++) {
-  tabs[i].querySelector(".tab").addEventListener("click", function (e) {
-    e.preventDefault();
-    const tabId = this.getAttribute("href");
-    // console.log(forms[i]);
+  // 세전이자
+  const interestRate =
+    Number(document.querySelector("#depositInterestRate").value) / 100;
 
-    for (let j = 0; j < tabs.length; j++) {
-      tabs[j].classList.remove("on");
-      forms[j].classList.remove("on");
-    }
-    this.parentNode.classList.add("on");
-    forms[i].classList.add("on");
-  });
+  const interest = Math.round(
+    principal * interestRate * (realSavingPeriod / 12),
+  );
+  document.querySelector("#interestBfrTax").innerHTML = `
+    ${interest.toLocaleString()}
+  `;
+
+  // 세전수령액
+  const depositBfrTaxing = principal + interest;
+  document.querySelector("#depositBfrTaxing").innerHTML = `
+    ${depositBfrTaxing.toLocaleString()}
+  `;
+
+  // 이자과세
+  const depositTypeTax = document.querySelector(
+    'input[name="depositTaxType"]:checked',
+  ).value;
+  console.log("depositTaxType", typeTax);
 }
