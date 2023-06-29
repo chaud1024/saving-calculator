@@ -20,8 +20,8 @@
             </ul>
             <form id="installmentSaving" class="form-saving installment_saving on">
                 <div class="saving_amount">
-                    <h2>월적립액</h2>
-                    <input type="text" id="monthlySave" onchange="valueMontlySavingAmount()">
+                    <label for="monthlySave">월적립액</label>
+                    <input type="text" id="monthlySave" onchange="valueSavingAmount()">
                 </div>
                 <div class="saving_period">
                     <h2>적금기간</h2>
@@ -35,13 +35,11 @@
                             <input id="periodYear" type="radio" name="periodType" value="year">
                         </li>
                     </ul>
-                    <input type="text" id="savingPeriod" class="input-saving_period" onchange="valueSavingPeriod()">
+                    <input type="text" id="savingPeriod" class="input-saving_period">
                 </div>
                 <div class="type_interest">
-
-                    <h2>이자율</h2>
+                    <label for="interestRate">연이자율</label>
                     <input id="interestRate" type="text" name="interestRate">
-
                 </div>
                 <div class="type_tax">
                     <h2>이자과세유형</h2>
@@ -71,7 +69,57 @@
                 </div>
             </form>
             <form id="depositSaving" class="form-saving">
-                예금계산
+                <div class="saving_amount">
+                    <label for="principal">예치금액</label>
+                    <input type="text" id="principal" onchange="valueSavingAmount()">
+                </div>
+                <div class="saving_period">
+                    <h2>예치기간</h2>
+                    <ul class="wrap-saving_period">
+                        <li>
+                            <label for="depositPeriodMonth">개월</label>
+                            <input id="depositPeriodMonth" type="radio" name="depositPeriodType" value="month" checked>
+                        </li>
+                        <li>
+                            <label for="depositPeriodYear">년</label>
+                            <input id="depositPeriodYear" type="radio" name="depositPeriodType" value="year">
+                        </li>
+                    </ul>
+                    <input type="text" id="depositSavingPeriod" class="input-saving_period">
+                </div>
+                <div class="type_interest">
+                    <label for="depositInterestRate">연이자율</label>
+                    <input id="depositInterestRate" type="text" name="depositInterestRate">
+                </div>
+                <div class="type_tax">
+                    <h2>이자과세유형</h2>
+                    <ul>
+                        <li>
+                            <input id="depositRegular" type="radio" value="일반과세" name="depositTaxType" checked
+                                class="radio-type_tax">
+                            <label for="depositRegular">일반과세</label>
+                        </li>
+                        <li>
+                            <input id="depositTaxFree" type="radio" value="비과세" name="depositTaxType"
+                                class="radio-type_tax">
+                            <label for="depositTaxFree">비과세</label>
+                        </li>
+                        <li>
+                            <input id="depositPreferential" type="radio" value="세금우대" name="depositTaxType"
+                                class="radio-type_tax">
+                            <label for="depositPreferential">세금우대</label>
+                        </li>
+                        <li class="item-preferential_rate">
+                            <label for="depositPreferentialRate">우대세율</label>
+                            <input id="depositPreferentialRate" type="text" name="preferentialRate">
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="wrap_btns">
+                    <button type="button" class="btn-sm btn-cal" onclick="calDeposit()">계산하기</button>
+                    <button type="reset" class="btn-sm btn-reset">초기화</button>
+                </div>
             </form>
             <form id="loan" class="form-saving">
                 대출계산
