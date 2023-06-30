@@ -59,11 +59,11 @@ const typeTax = document.querySelectorAll(".radio-type_tax");
 
 for (let i = 0; i < typeTax.length; i++) {
   typeTax[i].addEventListener("click", function (e) {
-    // console.log(e.target.value);
+    const typeTaxPref = document.querySelectorAll(".item-preferential_rate");
     if (e.target.value == "세금우대") {
-      document.querySelector(".item-preferential_rate").classList.add("on");
+      typeTaxPref.forEach((item) => item.classList.add("on"));
     } else {
-      document.querySelector(".item-preferential_rate").classList.remove("on");
+      typeTaxPref.forEach((item) => item.classList.remove("on"));
     }
   });
 }
@@ -220,5 +220,28 @@ function calDeposit() {
   const depositTypeTax = document.querySelector(
     'input[name="depositTaxType"]:checked',
   ).value;
-  console.log("depositTaxType", typeTax);
+  console.log("depositTaxType", depositTypeTax);
+
+  switch (depositTypeTax) {
+    case "일반과세":
+      const taxReg = Math.round(interest * 0.154);
+      document.querySelector("#interestTaxing").innerHTML = `
+        ${taxReg.toLocaleString()}
+      `;
+      break;
+    case "비과세":
+      const taxNone = 0;
+      document.querySelector("#interestTaxing").innerHTML = `
+      ${taxNone}
+    `;
+      break;
+    case "세금우대":
+      const taxPref = document.querySelector("#depositPreferentialRate").value;
+
+      console.log("taxPref", taxPref);
+      document.querySelector("#interestTaxing").innerHTML = `
+        세금우대
+      `;
+      break;
+  }
 }
