@@ -1,14 +1,16 @@
 // 이자계산
 // 정기적금 : 월 납입금 x 납입개월수 x (납입개월수 + 1)/2 x  이자율/12
 // 정기예금 :
-// 단리식(매월이자지급)
+// 단리식(매월이자지급) simple interest
 // ◎ 월단위 이자계산 : 원금x연이율x월수/12
 // ◎ 일단위 이자계산 : 원금x연이율x일수/365
-// 복리식(만기일시지급)
+// 복리식(만기일시지급) compound interest
 // ◎ 월복리 이자계산 : 원금 x｛（1＋연이율/12)ⁿ-1｝ⁿ = 경과일수
 // ◎ 잔여일수이자계산 : 원금＋월복리이자)x연이율x경과일수/365
 
+// =========================================
 // 적금, 예금, 대출 탭 기능
+// =========================================
 
 const tabs = document.querySelectorAll(".type-saving li");
 const forms = document.querySelectorAll("form");
@@ -28,8 +30,11 @@ for (let i = 0; i < tabs.length; i++) {
   });
 }
 
+// =========================================
 // input에 세자리마다 콤마 붙이기
-// 적금
+// =========================================
+
+// [1] 적금
 const monthlySave = document.querySelector("#monthlySave");
 
 monthlySave.addEventListener("keyup", function (e) {
@@ -39,7 +44,7 @@ monthlySave.addEventListener("keyup", function (e) {
   monthlySave.value = formatValue;
 });
 
-//예금
+// [2] 예금
 const depositPrincipal = document.querySelector("#principal");
 
 depositPrincipal.addEventListener("keyup", function (e) {
@@ -53,8 +58,11 @@ const valueSavingAmount = () => {
   Number(document.querySelector("#monthlySave").value);
 };
 
+// =========================================
 // 세금우대 선택 시 우대율 적는 input 보여주기
 // 세금우대가 아니라면 우대율 적는 input 숨기기
+// =========================================
+
 const typeTax = document.querySelectorAll(".radio-type_tax");
 
 for (let i = 0; i < typeTax.length; i++) {
@@ -68,10 +76,10 @@ for (let i = 0; i < typeTax.length; i++) {
   });
 }
 
-const 제곱 = Math.pow(2, 10);
-// console.log(제곱);
-
+// =========================================
 // 적금 계산하기 버튼 클릭 -> 결과화면
+// =========================================
+
 function cal() {
   // 매월적립금
   const monthlySavingAmount = document
@@ -104,7 +112,6 @@ function cal() {
   `;
 
   // 세전이자
-  // [1] 단리의 경우
   const interestRate =
     Number(document.querySelector("#interestRate").value) / 100;
 
@@ -176,7 +183,10 @@ function cal() {
   }
 }
 
-// 예금계산
+// =========================================
+// 예금 계산하기 버튼 클릭 -> 결과화면
+// =========================================
+
 function calDeposit() {
   // 원금합계
   const principal = Number(
@@ -217,6 +227,8 @@ function calDeposit() {
   `;
 
   // 이자과세 & 세후수령액
+  // 일반과세: 15.4%, 비과세: 0, 세금우대인 경우 우대세율 작성
+
   const depositTypeTax = document.querySelector(
     'input[name="depositTaxType"]:checked',
   ).value;
@@ -265,3 +277,6 @@ function calDeposit() {
       break;
   }
 }
+
+const 제곱 = Math.pow(2, 10);
+// console.log(제곱);
