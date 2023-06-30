@@ -216,7 +216,7 @@ function calDeposit() {
     ${depositBfrTaxing.toLocaleString()}
   `;
 
-  // 이자과세
+  // 이자과세 & 세후수령액
   const depositTypeTax = document.querySelector(
     'input[name="depositTaxType"]:checked',
   ).value;
@@ -228,19 +228,39 @@ function calDeposit() {
       document.querySelector("#interestTaxing").innerHTML = `
         ${taxReg.toLocaleString()}
       `;
+
+      // 세후수령액
+      document.querySelector("#netDeposit").innerHTML = `
+        ${(depositBfrTaxing - taxReg).toLocaleString()}
+      `;
       break;
+
     case "비과세":
       const taxNone = 0;
       document.querySelector("#interestTaxing").innerHTML = `
       ${taxNone}
     `;
-      break;
-    case "세금우대":
-      const taxPref = document.querySelector("#depositPreferentialRate").value;
 
-      console.log("taxPref", taxPref);
+      // 세후수령액
+      document.querySelector("#netDeposit").innerHTML = `
+      ${(depositBfrTaxing - 0).toLocaleString()}
+    `;
+
+      break;
+
+    case "세금우대":
+      const taxPreferentialRate = Number(
+        document.querySelector("#depositPreferentialRate").value,
+      );
+
+      const taxPref = Math.round((interest * taxPreferentialRate) / 100);
       document.querySelector("#interestTaxing").innerHTML = `
-        세금우대
+      ${taxPref.toLocaleString()}
+      `;
+
+      // 세후수령액
+      document.querySelector("#netDeposit").innerHTML = `
+        ${(depositBfrTaxing - taxPref).toLocaleString()}
       `;
       break;
   }
