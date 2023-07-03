@@ -135,7 +135,55 @@
                 </div>
             </form>
             <form id="loan" class="form-saving">
-                대출계산
+                <div class="loan_amount">
+                    <label for="loanPrincipal">대출금액</label>
+                    <input type="text" id="loanPrincipal" onchange="valueSavingAmount()">
+                </div>
+                <div class="loan_period">
+                    <h2>대출기간</h2>
+                    <ul class="wrap-loan_period">
+                        <li>
+                            <label for="loanPeriodMonth">개월</label>
+                            <input id="loanPeriodMonth" type="radio" name="loanPeriodType" value="month" checked>
+                        </li>
+                        <li>
+                            <label for="loanPeriodYear">년</label>
+                            <input id="loanPeriodYear" type="radio" name="loanPeriodType" value="year">
+                        </li>
+                    </ul>
+                    <input type="text" id="loanSavingPeriod" class="input-loan_period">
+                </div>
+                <div class="type_interest">
+                    <label for="interestRate">대출금리</label>
+                    <input id="interestRate" type="text" name="interestRate">
+                </div>
+                <div class="type_grace_period">
+                    <h2>거치기간</h2>
+                    <ul class="wrap-grace_period">
+                        <li>
+                            <label for="gracePeriodMonth">개월</label>
+                            <input id="gracePeriodMonth" type="radio" name="gracePeriodType" value="month" checked>
+                        </li>
+                        <li>
+                            <label for="gracePeriodYear">년</label>
+                            <input id="gracePeriodYear" type="radio" name="gracePeriodType" value="year">
+                        </li>
+                    </ul>
+                    <input id="gracePeriod" type="text" name="gracePeriod" class="input-grace_period">
+                </div>
+                <div class="type_payment">
+                    <h2>상환방법</h2>
+                    <select name="payment" id="payment">
+                        <option value="원리금균등상환">원리금균등상환</option>
+                        <option value="원금균등상환">원금균등상환</option>
+                        <option value="원금만기일시상환">원금만기일시상환</option>
+                    </select>
+                </div>
+
+                <div class="wrap_btns">
+                    <button type="button" class="btn-sm btn-cal" onclick="calDeposit()">계산하기</button>
+                    <button type="reset" class="btn-sm btn-reset">초기화</button>
+                </div>
             </form>
             <div id="result" class="area_result">
                 <div class="wrapper">
