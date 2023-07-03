@@ -104,7 +104,9 @@ input {
 }
 
 .input-saving_period,
-.input-deposit_interest_rage {
+.input-deposit_interest_rage,
+.input-loan_period,
+.input-grace_period {
   margin-left: 1rem;
 }
 
