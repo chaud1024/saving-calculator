@@ -88,8 +88,21 @@
                     <input type="text" id="depositSavingPeriod" class="input-saving_period">
                 </div>
                 <div class="type_interest">
-                    <label for="depositInterestRate">연이자율</label>
-                    <input id="depositInterestRate" type="text" name="depositInterestRate">
+                    <h2>연이자율</h2>
+                    <ul>
+                        <li>
+                            <input id="depositSimple" type="radio" value="단리" name="depositInterestRate" checked
+                                class="radio-type-interest">
+                            <label for="depositSimple">단리</label>
+                        </li>
+                        <li>
+                            <input id="depositCompound" type="radio" value="연복리" name="depositInterestRate"
+                                class="radio-type-interest">
+                            <label for="depositCompound">연복리</label>
+                        </li>
+                    </ul>
+                    <input id="depositInterestRate" class="input-deposit_interest_rage" type="text"
+                        name="depositInterestRate">
                 </div>
                 <div class="type_tax">
                     <h2>이자과세유형</h2>
