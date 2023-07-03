@@ -210,21 +210,50 @@ function calDeposit() {
     : (realSavingPeriod = Number(savingPeriod));
 
   // 세전이자
+  const depositTypeInterest = document.querySelector(
+    'input[name="depositInterestRate"]:checked',
+  ).value;
+  console.log("depositTypeInterest", depositTypeInterest);
+
   const interestRate =
     Number(document.querySelector("#depositInterestRate").value) / 100;
 
-  const interest = Math.round(
-    principal * interestRate * (realSavingPeriod / 12),
-  );
-  document.querySelector("#interestBfrTax").innerHTML = `
-    ${interest.toLocaleString()}
-  `;
+  let interest;
 
-  // 세전수령액
-  const depositBfrTaxing = principal + interest;
-  document.querySelector("#depositBfrTaxing").innerHTML = `
-    ${depositBfrTaxing.toLocaleString()}
-  `;
+  let depositBfrTaxing;
+
+  switch (depositTypeInterest) {
+    case "단리":
+      interest = Math.round(principal * interestRate * (realSavingPeriod / 12));
+      document.querySelector("#interestBfrTax").innerHTML = `
+      ${interest.toLocaleString()}
+    `;
+      // 세전수령액
+      depositBfrTaxing = principal + interest;
+      document.querySelector("#depositBfrTaxing").innerHTML = `
+        ${depositBfrTaxing.toLocaleString()}
+      `;
+      break;
+
+    case "연복리":
+      period == "year"
+        ? (realSavingPeriod = Number(savingPeriod))
+        : (realSavingPeriod = Number(savingPeriod) / 12);
+
+      // 세전수령액
+      depositBfrTaxing =
+        principal * Math.pow(1 + interestRate, realSavingPeriod);
+      document.querySelector("#depositBfrTaxing").innerHTML = `
+        ${depositBfrTaxing.toLocaleString()}
+      `;
+
+      // 세전이자
+      interest = depositBfrTaxing - principal;
+      document.querySelector("#interestBfrTax").innerHTML = `
+        ${interest.toLocaleString()}
+      `;
+      break;
+  }
 
   // 이자과세 & 세후수령액
   // 일반과세: 15.4%, 비과세: 0, 세금우대인 경우 우대세율 작성
@@ -277,6 +306,3 @@ function calDeposit() {
       break;
   }
 }
-
-const 제곱 = Math.pow(2, 10);
-// console.log(제곱);
